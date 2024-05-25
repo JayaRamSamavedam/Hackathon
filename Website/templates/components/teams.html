@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %} Teams {% endblock title %}
+{% load static %} 
+{% block body %}
+<div class="mainroomplace">
+  <div class="roomsdisplay">
+    {% if user.is_staff and user.is_authenticated %}
+    <form
+      action="{% url 'handle_team' session_no=session.session_no room_no=room.room_no %}"
+      method="post"
+    >
+      {% csrf_token %}
+      <center>
+        <img class="floating" src="{% static 'images/studentico.svg' %}" width="250" />
+      </center>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <label for="team"><i class="fa-solid fa-people-group fa-flip" style="color: #ffffff;"></i> Choose a team</label>
+            </td>
+            <td>
+              <select name="team" id="team">
+                <option value="none">Select One</option>
+                {% for team in teams %}
+                <option value="{{ team.team_name }}">
+                  {{ team.team_name }}
+                </option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button type="reset" class="tooltip-btn-hover color-2">
+                RESET
+              </button>
+            </td>
+            <td>
+              <button type="submit" class="tooltip-btn-hover color-1">
+                PROCEED
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    {% endif %}
+    {% if not user.is_staff %}
+    <h1>you have donot have acess to use this</h1>
+    {%endif %}
+  </div>
+</div>
+{% endblock body %}

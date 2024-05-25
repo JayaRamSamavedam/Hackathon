@@ -1,0 +1,550 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image" href="{% static 'images/logo.png' %}" />
+    <title>{% block title %}{% endblock title %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'stylesheets/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/announcement.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/faculty.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/review.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/marksheets.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/backgroundani.css' %}" />
+    <link rel="stylesheet" href="{% static 'stylesheets/timetable.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/1deaab12ff.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  </head>
+  <body>
+    
+    <nav
+      class="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"
+          ><img src="https://th.bing.com/th/id/R.5d6247728e7db4cc6c5aed648b0dc5dd?rik=opp5xkzx56h%2b2A&riu=http%3a%2f%2funiversityinnovation.org%2fimages%2f5%2f5d%2fKLLogo.png&ehk=yMZ15VkUNdltfWMsgZMA%2b0HPKqdm0m9xB5oCEtiUyAo%3d&risl=&pid=ImgRaw&r=0" width="120"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-1 mb-lg-0">
+            {% if user.is_superuser %}
+            
+              <li class="nav-item">
+              <a class="nav-link" aria-current="page" href={% url 'admin:index' %}><i class="fa-solid fa-screwdriver-wrench fa-fade" style="color: #ffffff;"></i> Admin</a>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href={% url 'home' %}><i class="fa-solid fa-house-user" style="color: #ffffff"></i> Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href={% url 'timetable' %}><i class="fa-solid fa-stopwatch" style="color: #ffffff"></i> Venue</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href={% url 'announcements' %}><i class="fa-solid fa-bullhorn" style="color: #ffffff"></i> Announcements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href={% url 'leaderboard' %}><i class="fa-solid fa-graduation-cap fa-bounce" style="color: #ffffff;"></i> LeaderBoard</a>
+            </li>
+            
+            {% if user.is_authenticated  and  not user.is_staff %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+              <i class="fa-solid fa-school" style="color: #ffffff;"></i> Student
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href={% url 'marksheets' %}><i class="fa-solid fa-file-circle-check" style="color: #ffffff;"></i> Marks</a></li>
+                <li><a class="dropdown-item" href={% url 'viewmyattendance' %}><i class="fa-solid fa-clipboard-user" style="color: #ffffff;"></i> Attendance</a></li>
+                <li><a class="dropdown-item" href={% url 'reviews' %}><i class="fa-solid fa-book" style="color: #ffffff"></i> Helpdesk</a></li>
+              </ul>
+            </li>
+            {% endif %}
+            
+            {% if user.is_staff %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+              <i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i> Faculty
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href={% url 'room_display' %}><i class="fa-solid fa-clipboard-user" style="color: #ffffff;"></i> Post attendance</a></li>
+                <li><a class="dropdown-item" href={% url 'room_display_review' %}><i class="fa-regular fa-calendar-check" style="color: #ffffff;"></i> Post marks</a></li>
+              </ul>
+            </li>
+            {% endif %}
+
+            {% if user.is_superuser %}
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+            <i class="fa-solid fa-flag-checkered fa-fade"></i> Reports
+            </a>
+            <ul class="dropdown-menu">
+              {% comment %} <li><a class="dropdown-item" href={% url 'open' %}><i class="fa-solid fa-clipboard-user" style="color: #ffffff;"></i>Give Acess to post marks</a></li> {% endcomment %}
+              {% comment %} <li><a class="dropdown-item" href={% url 'reports' %}><i class="fa-regular fa-calendar-check" style="color: #ffffff;"></i>Reports</a></li> {% endcomment %}
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href={% url 'open' %}><i class="fa-solid fa-house-user" style="color: #ffffff"></i> open </a>
+              </li>
+              {% for i in session_att %}
+              <li><a class="dropdown-item" href={% url 'gen' session=i %}><i class="fa-solid fa-clipboard-user" style="color: #ffffff;"></i>AttRpt-{{i}}</a></li>
+              {%endfor%}
+              {% for i in session_rev %}
+              <li><a class="dropdown-item" href={% url 'genmarks' session=i %}><i class="fa-solid fa-clipboard-user" style="color: #ffffff;"></i>RevRpt-{{i}}</a></li>
+              {%endfor%}
+            </ul>
+          </li>
+          {%endif%}
+
+          </ul>
+          
+          <a
+          href="#"
+          class="homenavlink"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+        >
+        {% if user.is_authenticated %}
+          <a href={% url 'logout'%} title="Logout">
+            <button class="d-flex btn btn-success"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></button>
+          </a>
+        {% else %}
+          <button class="d-flex btn btn-danger"><i class="fa-solid fa-lock fa-flip"></i></button>
+        {% endif %}
+        </a>
+        </div>
+      </div>
+    </nav>
+
+    {% for message in messages %}
+      <div
+
+        class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show"
+        role="alert"
+        id="popupmsg"
+      >
+        <strong>Message: </strong> {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+    {% endfor %}
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="login" class="login__form" method="post">
+            {% csrf_token %}
+            <h1 class="login__title">Learnathon portal</h1>
+
+            <div class="login__content">
+              <div class="login__box">
+                <i class="fa-solid fa-circle-user fa-flip"></i>
+                <div class="login__box-input">
+                  <input
+                    type="text"
+                    required
+                    class="login__input"
+                    placeholder=" "
+                    name="uname"
+                  />
+                  <label for="" class="login__label">Enter ID</label>
+                </div>
+              </div>
+
+              <div class="login__box">
+                <i class="fa-solid fa-key fa-flip"></i>
+                <div class="login__box-input">
+                  <input
+                    type="password"
+                    required
+                    class="login__input"
+                    id="login-pass"
+                    placeholder=" "
+                    name="pass"
+                  />
+                  <label for="" class="login__label">Password</label>
+                  <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="login__check">
+              <div class="login__check-group">
+                <input type="checkbox" class="login__check-input" />
+                <label for="" class="login__check-label">Remember me</label>
+              </div>
+
+              <a href="#" class="login__forgot">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="tooltip-btn-hover color-1">
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp">{% block body %} {% endblock body %}</div>
+    <!-- Background -->
+    <!-- BG animation -->
+
+    <div class="bgcontainer">
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-bgcontainer">
+        <div class="circle"></div>
+      </div>
+    </div>
+    <!-- close ani -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

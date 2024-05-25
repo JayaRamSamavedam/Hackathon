@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %} Marksheet {% endblock title %} 
+{% block body %}
+<div class="marksheets">
+  {% if user.is_authenticated %}
+  <h1>Attendance tab</h1>
+  <div class="table-responsive card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Review</th>
+          <th scope="col">University ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        {% for i in att %}
+        <tr>
+        <td>{{i.session}}</td>
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+        {% if i.status == True %}
+             <td>present</td>
+        {% endif %}
+        {% if i.status == False %}
+             <td>absent</td>
+        {% endif %}
+      </tr>
+        {% endfor %}
+        
+          
+      </tbody>
+    </table>
+  </div>
+  {%else%}
+  <h1>Please login to see your attendence</h1>
+  {%endif%}
+</div>
+
+{% endblock body %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %} Venue {% endblock title %} 
+{% load static %}
+{% block body %}
+
+<div class="timetable">
+  <h1><i class="fa-solid fa-clock fa-spin"></i> Schedules</h1>
+  {% for tt in timetable %}
+  <h2>{{tt.text}}</h2>
+  <object
+    data="static/{{tt.pdf}}"
+    type="application/pdf"
+    width="100%"
+    height="500px"
+  ></object>
+  {% endfor %}
+</div>
+{% endblock body %}

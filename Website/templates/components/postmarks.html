@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock title %} 
+{% load static %} 
+{% block body %}
+<div class="marksheets postattendtable">
+  <h1>POST Marks for </h1>
+  <span>Marks must be in between 0 to 10!</span>
+    {% if user.is_staff and user.is_authenticated %}
+    <div class="card">
+    <div class="card-body">
+      <p class="card-text">
+        <i class="fa-solid fa-laptop-code fa-bounce" style="color: #4200a3;"></i> {{rubrics}}
+      </p>
+    </div>
+    </div>
+    <div class="table-responsive card">
+      <form action="" method="post">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        {% csrf_token %}
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Marks Awarded</th>
+              <th>Re-Marks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in students %}
+            <tr>
+              <td>{{student.id}}</td>
+              <td>
+                <input type="number" name="id_{{student.id}}" value="0" min="0" max="10" required />
+              </td>
+              <td>
+                <input type="text" name="remarks_{{student.id}}" required />
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>      
+        <button type="submit" class="tooltip-btn-hover color-1 postbtn">
+          Post Marks
+        </button>
+      </form>
+    </div>
+    {% endif %} 
+  </div>
+</div>
+{% if not user.is_staff %}
+  <h1>you don't have acess to use this!</h1>
+{%endif %}
+{% endblock body %}

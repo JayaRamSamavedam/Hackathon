@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock title %}
+{% block body %} 
+
+{% for i in students%} 
+    {{i.id}}
+    <br />
+{% endfor %} 
+
+{% endblock body %}

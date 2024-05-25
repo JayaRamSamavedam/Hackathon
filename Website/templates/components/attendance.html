@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %} Attendance {% endblock title %} 
+{% block body %}
+<table>
+  {% if user.is_staff and user.is_authenticated %}
+  <form
+    action="{% url 'post_attendence' room_no=room.room_no session_no=session.session_no %}"
+    method="post"
+  >
+    {% csrf_token %}
+    <tr>
+      <th>ID</th>
+      <th>Attendance</th>
+    </tr>
+
+    {% for student in students %}
+    <tr>
+      <td>{{student.id}}</td>
+      <td>
+        <input type="checkbox" name="{{student.id}}" value="true" checked />
+      </td>
+    </tr>
+    {% endfor %}
+
+    <button type="submit">Post Attendance</button>
+  </form>
+  {% endif %}
+    {% if not user.is_staff %}
+    <h1>you have donot have acess to use this</h1>
+    {%endif %}
+</table>
+{% endblock body %}
