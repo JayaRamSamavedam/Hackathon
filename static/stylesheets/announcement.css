@@ -1,0 +1,29 @@
+.container{
+    margin-top: 5%;
+    margin-left: 8%;
+}
+.announcecard{
+    animation: floaterx 1s;
+    margin-top: 5px;
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    border: 2px solid rgb(60, 60, 60);
+    box-shadow: 0 0 16px black;
+    color: rgb(0, 0, 0);
+    margin-bottom: 15%;
+    min-height: 560px;
+    letter-spacing: 1px;
+    font-weight: 300;
+    text-align: left;
+}
+.announcecard:hover{
+    cursor: pointer;
+    transition: all ease-in 0.1s;
+    filter: brightness(1.04);
+    transform: scale(1.015);
+}
+.card-text{
+    font-weight: 700;
+}
+.announcecard li{
+    list-style: none;
+}

@@ -1,0 +1,109 @@
+.marksheets {
+  text-align: center;
+  justify-content: center;
+  max-width: 90%;
+  color: white;
+  margin: auto;
+  animation: floaterxr 1s;
+
+}
+.marksheets h1{
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: capitalize;
+    text-shadow: 0 0 7px black;
+}
+.card{
+    background-color: transparent;
+    border: none;
+}
+.marksheets table {
+  box-shadow: 0 0 12px rgb(10, 10, 10);
+  background-image: linear-gradient(45deg, #ffd7f4 0%, #c5d5f0 100%);
+}
+.leaderboard table{
+  background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+}
+.table > :not(caption) > * > * {
+  background-color: transparent;
+}
+.table td {
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 0 4px #000437cf;
+}
+
+.table tr {
+  color: aliceblue;
+}
+.table th {
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  text-decoration: none;
+  text-shadow: 0 0 12px black;
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+  box-shadow: 0 0 12px black;
+  padding: 12px;
+  background-blend-mode: multiply;
+}
+.table > tbody > tr:hover > * {
+  transition: all ease in 3s;
+  cursor: pointer;
+  background-image: linear-gradient(-225deg, #ffe9f9 0%, #d7fffe 100%);
+}
+.leaderboard .table > tbody > tr:hover > * {
+  transition: all ease in 3s;
+  cursor: pointer;
+  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+}
+
+
+.leaderboard .table tbody tr:nth-child(1) {
+  font-size: 21px;
+  background-color: #deaa25;
+  background-image: linear-gradient(315deg, #e7b32d 0%, #e4b233 74%);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px rgb(255, 255, 255);
+}
+.leaderboard .table tbody tr:nth-child(2) {
+  font-size: 21px;
+  background: #C9CCD3;
+ background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
+ background-blend-mode: lighten;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px rgb(255, 255, 255);
+}
+.leaderboard .table tbody tr:nth-child(3) {
+  font-size: 21px;
+  background: linear-gradient(to bottom, #dfafa5 0%, #957d78 100%);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px rgb(255, 255, 255);
+}
+
+@media only screen and (max-width: 600px) {
+  .table th {
+    font-size: 18px;
+  }
+  .table{
+    font-size: 12px;
+  }
+  .leaderboard .table tbody tr:nth-child(1) {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  .leaderboard .table tbody tr:nth-child(2) {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  .leaderboard .table tbody tr:nth-child(3) {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+}

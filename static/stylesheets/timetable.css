@@ -1,0 +1,42 @@
+.timetable {
+  text-align: center;
+  animation: floatery 1s;
+}
+.timetable h1 {
+  font-size: 42px;
+  color: aliceblue;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px black;
+}
+.timetable h2 {
+  margin-top: 3%;
+  font-size: 32px;
+  color: aliceblue;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px black;
+}
+.timetable object {
+  border-radius: 22px;
+  border: 2px solid black;
+  box-shadow: 0 0 8px white;
+  max-width: 100%;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@media only screen and (max-width: 700px) {
+  .timetable h1 {
+    font-size: 18px;
+  }
+  .timetable h2 {
+    font-size: 14px;
+  }
+  .timetable object {
+    margin: 0px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
